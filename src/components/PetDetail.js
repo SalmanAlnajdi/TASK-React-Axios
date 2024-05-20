@@ -1,7 +1,23 @@
-import React from "react";
-import petsData from "../petsData";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { getOnePet } from "../api/pets";
 const PetDetail = () => {
-  const pet = petsData[0];
+  const { petId } = useParams();
+
+  const [pet, setPet] = useState("");
+
+  const setPetId = async () => {
+    setPet(await getOnePet(petId));
+  };
+
+  setPetId();
+  // const pet = petsData.find((pet)=>{
+  //   return pet.id == petId
+  // })
+
+  // if(!pet){
+  //   return <h1> Pet Not Founded </h1>
+  // }
   return (
     <div className="bg-[#F9E3BE] w-screen h-[100vh] flex justify-center items-center">
       <div className="border border-black rounded-md w-[70%] h-[70%] overflow-hidden flex flex-col md:flex-row p-5">
