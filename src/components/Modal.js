@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import Input from "./Input";
+import { createPet } from "../api/pets";
 
 const Modal = ({ show, setShowModal }) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [image, setImage] = useState("");
   const [available, setAvailable] = useState(0);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await createPet(name, type, image, available);
+  };
+
   if (!show) return "";
   return (
     <div
@@ -47,7 +54,10 @@ const Modal = ({ show, setShowModal }) => {
           }}
         />
 
-        <button className="w-[70px] border border-black rounded-md ml-auto mr-5 hover:bg-green-400">
+        <button
+          onClick={handleSubmit}
+          className="w-[70px] border border-black rounded-md ml-auto mr-5 hover:bg-green-400"
+        >
           Submit
         </button>
       </div>
