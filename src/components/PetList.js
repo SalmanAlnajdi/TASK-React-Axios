@@ -9,7 +9,7 @@ const PetList = () => {
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const { data: petData } = useQuery({
+  const { data: petData, isLoading } = useQuery({
     queryKey: ["getAll"],
     queryFn: getAllPets,
   });
@@ -18,6 +18,7 @@ const PetList = () => {
     ?.filter((pet) => pet.name.toLowerCase().includes(query.toLowerCase()))
     .map((pet) => <PetItem pet={pet} key={pet.id} />);
 
+  if (isLoading) return <h1>Loading.......</h1>;
   return (
     <>
       <div className="bg-[#F9E3BE] flex flex-col justify-center items-center ">
